@@ -9,7 +9,7 @@ const size = {
 };
 
 const flex = {
-  mobile: `(max-width): ${size.mobile}`,
+  mobile: `(max-width: ${size.mobile})`,
   tablet: `(max-width: ${size.tablet})`,
   laptopS: `(max-width: ${size.laptopS})`,
   laptopM: `(max-width: ${size.laptopM})`,
@@ -20,6 +20,7 @@ const theme: DefaultTheme = {
   ...flex,
   colors: {
     pointColor: '#F7323F',
+    backgroundColor: '#f5f5f5',
   },
 };
 
