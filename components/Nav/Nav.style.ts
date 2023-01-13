@@ -25,6 +25,13 @@ const NavBlock = styled.div`
     label {
       cursor: pointer;
     }
+    /* :hover {
+      color: black;
+    } */
+    svg {
+      font-size: 20px;
+      margin-top: 5px;
+    }
   }
 `;
 const MenuBlock = styled.div`
