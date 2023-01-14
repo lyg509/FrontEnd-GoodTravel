@@ -11,7 +11,7 @@ const Nav: NextPage = () => {
       <NavBlock>
         <div>
           <Link href="/">
-            <label id="title">혼자어때</label>
+            <label id="title">여행어때</label>
           </Link>
         </div>
 
