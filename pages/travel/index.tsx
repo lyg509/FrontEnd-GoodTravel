@@ -14,7 +14,7 @@ const Travel: NextPage = () => {
     <>
       <Header>
         <Link href="/">
-          <label>혼자어때</label>
+          <label>여행어때</label>
         </Link>
       </Header>
       <Wrapper>

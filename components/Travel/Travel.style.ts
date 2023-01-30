@@ -5,20 +5,27 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 600px;
-  padding: 90px 0;
+  padding: 70px 20px;
   text-align: center;
   .main {
-    font-size: 45px;
+    font-size: 42px;
     font-weight: bold;
     margin-bottom: 20px;
+    font-family: 'Jalnan';
   }
   .sub {
-    font-size: 30px;
+    font-size: 28px;
+  }
+  .title {
+    font-size: 20px;
+    font-family: 'Jalnan';
   }
 `;
 
 const TestTitle = styled.div<{ color: string }>`
+  margin-top: 50px;
   label {
+    font-size: 30px;
     font-weight: bold;
     color: ${props => props.color};
   }
@@ -43,7 +50,7 @@ const Button = styled.div<{ color?: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 26px;
   box-shadow: 5px 5px black;
   margin: 0 20px;
 `;
@@ -63,7 +70,7 @@ const TestButton = styled.div`
     font-size: 26px;
     &:hover {
       font-weight: bold;
-      background-color: lightgray;
+      background-color: ${props => props.theme.colors.backgroundColor};
     }
   }
 `;
@@ -97,6 +104,64 @@ const TestResultCard = styled(Card)`
   margin: 30px 0;
 `;
 
+const TypeCourseBlock = styled.div`
+  position: relative;
+  background-color: gray;
+  margin-top: 20px;
+  height: 320px;
+  width: 100%;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: left;
+  border-radius: 1vw;
+  overflow: hidden;
+  cursor: pointer;
+  img {
+    height: 100%;
+    width: 100%;
+    opacity: 0.6;
+  }
+  .type-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 30px;
+    width: 70%;
+  }
+  &:hover {
+    img {
+      opacity: 1;
+      transition: 0.3s;
+    }
+    text-shadow: 5px 5px 15px black;
+  }
+`;
+
+const PopularTypeBlock = styled.div`
+  font-weight: bold;
+  font-size: 30px;
+  padding: 25px;
+  .popular-title {
+    font-size: 20px;
+    margin: 10px;
+  }
+  img {
+    width: 100%;
+  }
+`;
+
+const ResultFooter = styled.div`
+  font-size: 20px;
+  label {
+    color: ${props => props.theme.colors.pointColor};
+    font-family: 'Jalnan';
+    font-size: 25px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+`;
+
 export {
   Wrapper,
   Button,
@@ -107,4 +172,7 @@ export {
   TestQuestion,
   TestResultCard,
   TestTitle,
+  TypeCourseBlock,
+  PopularTypeBlock,
+  ResultFooter,
 };
