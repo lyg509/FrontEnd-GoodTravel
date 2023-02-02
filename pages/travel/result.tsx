@@ -2,13 +2,10 @@ import { Col, Row } from 'antd';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TEST } from '../../assets/test';
 import Loading from '../../components/Travel/Loading';
 import PopularType from '../../components/Travel/PopularType';
-import { RootState } from '../../store';
-import { getTestResult } from '../../store/travel';
-import TypeCourse from '../../components/Travel/TypeCourse';
 import {
   Header,
   Wrapper,
@@ -18,16 +15,20 @@ import {
   TestTitle,
   ResultFooter,
 } from '../../components/Travel/Travel.style';
-
+import TypeCourse from '../../components/Travel/TypeCourse';
+import { RootState } from '../../store';
+import { getTestResult } from '../../store/travel';
 
 const TravelResult: NextPage = () => {
   const [num, setNum] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [rank, setRank] = useState([]);
+  const [percentage, setPercentage] = useState(0);
   const dispatch = useDispatch();
-  const {typeRank} = useSelector((state: RootState) => state.travel);
+  const { typeResult } = useSelector((state: RootState) => state.travel);
 
-  const data = useCallback(()=> {
-    dispatch(getTestResult.request('1'));
+  const getTypeRank = useCallback(() => {
+    dispatch(getTestResult.request(''));
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,10 +41,9 @@ const TravelResult: NextPage = () => {
     if (!Kakao.isInitialized())
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPTKEY);
 
-      if (typeRank.length == 0) {
-        console.log('?');
-        data();
-      }
+    if (typeResult.length === 0) {
+      getTypeRank();
+    }
   }, []);
 
   const shareToKakao = () => {
@@ -51,19 +51,6 @@ const TravelResult: NextPage = () => {
     Kakao.Link.sendCustom({
       templateId: 73466,
     });
-  };
-
-  const popularType = () => {
-    const popular = [0, 1];
-    return (
-      <Row>
-        {popular.map((pop, i) => (
-          <Col span={12} key={i}>
-            <PopularType type={pop} rank={i + 1} />
-          </Col>
-        ))}
-      </Row>
-    );
   };
 
   return (
@@ -93,7 +80,7 @@ const TravelResult: NextPage = () => {
           </div>
           <TestResultCard>
             <h1 className="title">🚩 유형별 코스 추천</h1>
-            {TEST.results[num].courses.map((course,i) => {
+            {TEST.results[num].courses.map((course, i) => {
               return (
                 <TypeCourse
                   key={i}
@@ -104,10 +91,18 @@ const TravelResult: NextPage = () => {
               );
             })}
           </TestResultCard>
-          <TestResultCard>
-            <h1 className="title">✨가장 많은 유형</h1>
-            {popularType()}
-          </TestResultCard>
+          {rank.length > 0 && (
+            <TestResultCard>
+              <h1 className="title">✨가장 많은 유형</h1>
+              <Row>
+                {rank.map((type, i) => (
+                  <Col span={12} key={type}>
+                    <PopularType type={type} rank={i + 1} />
+                  </Col>
+                ))}
+              </Row>
+            </TestResultCard>
+          )}
           <ButtonWrapper>
             <Button color="yellow" onClick={() => shareToKakao()}>
               테스트 공유하기
