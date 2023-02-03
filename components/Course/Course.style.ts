@@ -70,7 +70,7 @@ const SearchFormWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  font-size: 0.8vw;
+  font-size: 15px;
   border: 0;
   height: 50px;
   width: 150px;

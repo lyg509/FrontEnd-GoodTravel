@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import searchCourse, {courseSaga, list} from './course';
-import travel, {travelSaga, TravelState} from './travel';
+import course, { courseSaga, CourseState } from './course';
+import travel, { travelSaga, TravelState } from './travel';
 import user, { userSaga, UserState } from './user';
 
 export function* rootSaga() {
   yield all([userSaga(), courseSaga(), travelSaga()]);
 }
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   user,
-  searchCourse,
+  course,
   travel,
 });
 
@@ -18,6 +18,6 @@ export default rootReducer;
 
 export type RootState = {
   user: UserState;
-  searchCourse: list;
+  course: CourseState;
   travel: TravelState;
 };
