@@ -1,4 +1,4 @@
-import { createAsyncAction,createAsyncAction } from 'typesafe-actions';
+import { createAction, createAsyncAction } from 'typesafe-actions';
 import { SearchCourse } from './types';
 
 export const SEARCH_COURSE_REQUEST = 'course/SEARCH_COURSE_REQUEST';
