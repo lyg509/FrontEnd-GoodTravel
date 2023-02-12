@@ -21,8 +21,9 @@ const MypageMap = ({ positions }: MapProps) => {
           level: 14, // map 크기
         };
         const map = new window.kakao.maps.Map(container, options);
-        var imageSrc = // 마커 이미지
-          'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+         // 마커 이미지
+        var imageSrc =
+            'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
 
         for (var i = 0; i < positions.length; i++) {
           // 마커 이미지의 이미지 크기

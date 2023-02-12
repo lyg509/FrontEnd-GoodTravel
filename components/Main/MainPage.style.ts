@@ -1,8 +1,15 @@
-import { Card } from 'antd';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 90px 0;
+`;
+
 const SliderCard = styled.div`
+  cursor: pointer;
   background-color: lightgoldenrodyellow;
+  color: white;
   height: 200px;
   width: 100%;
   position: relative;
@@ -13,14 +20,11 @@ const SliderCard = styled.div`
   }
   .title {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 20px;
-    width: 400px;
-    label {
-      color: white;
-      cursor: pointer;
-    }
+    top: 0px;
+    left: 0px;
+    padding: 25px;
+    font-size: 22px;
+    width: 100%;
   }
 `;
 
@@ -47,4 +51,4 @@ const TravelBlock = styled.div`
   padding: 30px 0;
 `;
 
-export { MenuBlock, MenuCard, SliderCard, TravelBlock };
+export { MenuBlock, MenuCard, SliderCard, TravelBlock, Wrapper };
