@@ -46,7 +46,6 @@ const RegisterComp: NextPage = () => {
   };
   return (
     <>
-      <Nav />
       <Menu currentName="코스 추가" />
       <Wrapper>
         <RegisterWrapper>

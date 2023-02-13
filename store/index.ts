@@ -11,7 +11,6 @@ export function* rootSaga() {
     userSaga(),
     courseSaga(),
     travelSaga(),
-  
     locationSaga(),
     registerSaga(),
   ]);
@@ -21,7 +20,6 @@ const rootReducer = combineReducers({
   user,
   course,
   travel,
-
   location,
   register,
 });
