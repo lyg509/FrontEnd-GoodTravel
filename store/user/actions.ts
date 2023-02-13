@@ -1,31 +1,40 @@
-import { createAsyncAction } from 'typesafe-actions';
-import { TravelTestResult } from './types';
+import { createAction, createAsyncAction } from 'typesafe-actions';
+import { Like, SignIn, SignUp } from './types';
 
-// 여행성향테스트 결과 합계 가져오기
-export const GET_TEST_RESULT_REQUEST = 'travel/GET_TEST_RESULT_REQUEST';
-export const GET_TEST_RESULT_SUCCESS = 'travel/GET_TEST_RESULT_SUCCESS';
-export const GET_TEST_RESULT_FAILURE = 'travel/GET_TEST_RESULT_FAILURE';
-// 여행성향테스트 결과 저장
-export const SAVE_TEST_RESULT_REQUEST = 'travel/SAVE_TEST_RESULT_REQUEST';
-export const SAVE_TEST_RESULT_SUCCESS = 'travel/SAVE_TEST_RESULT_SUCCESS';
-export const SAVE_TEST_RESULT_FAILURE = 'travel/SAVE_TEST_RESULT_FAILURE';
-// 추천코스결과값 가져오기
-export const GET_RECOMMEND_COURSE_REQUEST =
-  'travel/GET_RECOMMEND_COURSE_REQUEST';
-export const GET_RECOMMEND_COURSE_SUCCESS =
-  'travel/GET_RECOMMEND_COURSE_SUCCESS';
-export const GET_RECOMMEND_COURSE_FAILURE =
-  'travel/GET_RECOMMEND_COURSE_FAILURE';
+export const LIKE_COURSE_REQUEST = 'user/LIKE_COURSE_REQUEST';
+export const LIKE_COURSE_SUCCESS = 'user/LIKE_COURSE_SUCCESS';
+export const LIKE_COURSE_FAILURE = 'user/LIKE_COURSE_FAILURE';
 
-// 액션 생성 함수
-export const getTestResult = createAsyncAction(
-  GET_TEST_RESULT_REQUEST,
-  GET_TEST_RESULT_SUCCESS,
-  GET_TEST_RESULT_FAILURE,
-)<string, number[], Error>();
+export const UNLIKE_COURSE_REQUEST = 'user/UNLIKE_COURSE_REQUEST';
+export const UNLIKE_COURSE_SUCCESS = 'user/UNLIKE_COURSE_SUCCESS';
+export const UNLIKE_COURSE_FAILURE = 'user/UNLIKE_COURSE_FAILURE';
 
-export const saveTestResult = createAsyncAction(
-  SAVE_TEST_RESULT_REQUEST,
-  SAVE_TEST_RESULT_SUCCESS,
-  SAVE_TEST_RESULT_FAILURE,
-)<TravelTestResult, number, Error>()
+export const SIGN_IN_REQUEST = 'user/SIGN_IN_REQUEST';
+export const SIGN_IN_SUCCESS = 'user/SIGN_IN_SUCCESS';
+export const SIGN_IN_FAILURE = 'user/SIGN_IN_FAILURE';
+
+export const SIGN_UP_REQUEST = 'user/SIGN_UP_REQUEST';
+export const SIGN_UP_SUCCESS = 'user/SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'user/SIGN_UP_FAILURE';
+
+export const SET_LOG_OUT = 'user/SET_LOG_OUT';
+
+export const likeCourse = createAsyncAction(
+  LIKE_COURSE_REQUEST,
+  LIKE_COURSE_SUCCESS,
+  LIKE_COURSE_FAILURE,
+)<Like, Like, Error>();
+
+export const signIn = createAsyncAction(
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+)<SignIn, string, Error>();
+
+export const signUp = createAsyncAction(
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE,
+)<SignUp, string, Error>();
+
+export const logOut = createAction(SET_LOG_OUT)();

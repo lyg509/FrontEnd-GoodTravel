@@ -20,10 +20,12 @@ const CourseComp: NextPage = () => {
     { courseId: 1, courseName: '임시 데이터' },
     { courseId: 1, courseName: '임시 데이터' },
   ];
-  const { searchCourses } = useSelector((state: RootState) => state.course);
+  const { searchCourses, searchKeyword } = useSelector(
+    (state: RootState) => state.course,
+  );
   return (
     <>
-      <Nav />
+      <Nav/>
       <Menu currentName="코스추천" />
       <Wrapper>
         <CourseWrapper>
@@ -33,7 +35,7 @@ const CourseComp: NextPage = () => {
               <></>
             ) : (
               <div id="search">
-                <div className="title"> 검색 결과 맞춤 코스 추천</div>
+                <div className="title"> {searchKeyword} 관련 코스 추천</div>
                 <CourseList data={searchCourses} />
               </div>
             )}
