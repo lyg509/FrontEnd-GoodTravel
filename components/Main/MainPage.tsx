@@ -3,7 +3,6 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import { Wrapper } from '../../styles/variables';
 import { MenuBlock, TravelBlock } from './MainPage.style';
-import MainSlider from './MainSlider';
 import MainMenuCard from './MainMenuCard';
 import { Row, Col } from 'antd';
 import MainGraph from './MainGraph';
@@ -19,9 +18,7 @@ const menus = [
 export default function MainPage() {
   return (
     <>
-      <Nav />
       <Wrapper>
-        <MainSlider />
         <MenuBlock>
           <Row gutter={[20, 20]}>
             {menus.map((menu, i) => (
