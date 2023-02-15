@@ -2,6 +2,7 @@ import { UserState, UserAction } from './types';
 import { createReducer } from 'typesafe-actions';
 import {
   LIKE_COURSE_SUCCESS,
+  UNLIKE_COURSE_SUCCESS,
   SET_LOG_IN,
   SIGN_IN_SUCCESS,
   SIGN_UP_SUCCESS,
@@ -11,36 +12,47 @@ import produce from 'immer';
 
 const initialState: UserState = {
   userInfo: {
-    userId: '',
+    userId: 0,
     tourTestId: '',
     userName: '',
   },
-  myCourses: [],
-  likes: [],
+  userCourses: [],
+  userLikes: [],
   isLogin: false,
-  isSignUp:false,
+  isSignUp: false,
 };
 
 const user = createReducer<UserState, UserAction>(initialState, {
-  [LIKE_COURSE_SUCCESS]: (state, action) =>
-    produce(state, draft => {
-      draft.likes.push(action.payload);
-    }),
   [SIGN_IN_SUCCESS]: state =>
     produce(state, draft => {
       draft.isLogin = true;
     }),
   [SIGN_UP_SUCCESS]: state =>
-  produce(state, dragt => {
-    dragt.isSignUp = true;
-  }),
+    produce(state, draft => {
+      draft.isSignUp = true;
+    }),
   [SET_LOG_IN]: state =>
-  produce(state, dragt => {
-    dragt.isLogin = true;
-  }),
+    produce(state, draft => {
+      draft.isLogin = true;
+    }),
   [USER_INFO_SUCCESS]: (state, action) =>
     produce(state, draft => {
-      draft.userInfo = action.payload;
+      draft.userInfo = action.payload.userInfo;
+      draft.userCourses = action.payload.userCourses;
+      draft.userLikes = action.payload.userLikes;
+    }),
+  [LIKE_COURSE_SUCCESS]: (state, action) =>
+    produce(state, draft => {
+      draft.userLikes.push({
+        courseId: action.payload.courseId,
+        courseName: action.payload.courseName,
+      });
+    }),
+  [UNLIKE_COURSE_SUCCESS]: (state, action) =>
+    produce(state, draft => {
+      draft.userLikes = draft.userLikes.filter(
+        data => data.courseId !== action.payload.courseId,
+      );
     }),
 });
 

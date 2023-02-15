@@ -1,17 +1,13 @@
-import { likeCourse, signIn, signUp, userInfo } from './actions';
+import { likeCourse, signIn, signUp, unlikeCourse, userInfo } from './actions';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { SignInAPI, SignUpAPI, UserInfoAPI } from './api';
-import { SignInSuccess, UserInfo } from './types';
-
-function* likeCourseSaga({
-  payload: id,
-}: ReturnType<typeof likeCourse.request>) {
-  try {
-    yield put(likeCourse.success(id));
-  } catch (error) {
-    console.error(error);
-  }
-}
+import {
+  LikeCourseAPI,
+  SignInAPI,
+  SignUpAPI,
+  UnlikeCourseAPI,
+  UserInfoAPI,
+} from './api';
+import { SignInSuccess, UserDetail } from './types';
 
 function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
   try {
@@ -23,6 +19,7 @@ function* signInSaga({ payload }: ReturnType<typeof signIn.request>) {
   } catch (error) {
     alert('아이디나 비밀번호가 일치하지 않습니다.');
     console.log(error);
+    
   }
 }
 
@@ -39,7 +36,7 @@ function* signUpSaga({ payload }: ReturnType<typeof signUp.request>) {
 
 function* userInfoSaga({ payload }: ReturnType<typeof userInfo.request>) {
   try {
-    const result: UserInfo = yield call(UserInfoAPI, payload);
+    const result: UserDetail = yield call(UserInfoAPI, payload);
     yield put(userInfo.success(result));
     return result;
   } catch (error) {
@@ -47,11 +44,31 @@ function* userInfoSaga({ payload }: ReturnType<typeof userInfo.request>) {
   }
 }
 
+function* likeCourseSaga({ payload }: ReturnType<typeof likeCourse.request>) {
+  try {
+    yield call(LikeCourseAPI, payload);
+    yield put(likeCourse.success(payload));
+  } catch (error) {
+    console.log(error);
+  }
+}
+function* unlikeCourseSaga({
+  payload,
+}: ReturnType<typeof unlikeCourse.request>) {
+  try {
+    yield call(UnlikeCourseAPI, payload);
+    yield put(unlikeCourse.success(payload));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* userSaga() {
   yield all([
-    takeLatest(likeCourse.request, likeCourseSaga),
     takeLatest(signIn.request, signInSaga),
     takeLatest(signUp.request, signUpSaga),
     takeLatest(userInfo.request, userInfoSaga),
+    takeLatest(likeCourse.request, likeCourseSaga),
+    takeLatest(unlikeCourse.request, unlikeCourseSaga),
   ]);
 }

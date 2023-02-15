@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SignIn, SignUp } from './types';
+import { Bookmark, SignIn, SignUp } from './types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -10,13 +10,71 @@ export async function SignInAPI({ userEmail, userPassword }: SignIn) {
       userPassword: userPassword,
     })
     .then(res => res.data);
-    const result = {userEmail: datas.userEmail, token: datas.accessToken};
-    return datas;
+  const result = { userEmail: datas.userEmail, token: datas.accessToken };
+  return result;
 }
 
-export async function UserInfoAPI(userEmail: string | null) {
-  const datas = await axios
+export async function SignUpAPI({ userEmail, userName, userPassword }: SignUp) {
+  const datas = await axios.post(`${BASE_URL}user/signup`, {
+    userEmail: userEmail,
+    userName: userName,
+    userPassword: userPassword,
+  });
+  return datas;
+}
+
+// 사용자 코스 좋아요 추가
+export async function LikeCourseAPI({ userId, courseId }: Bookmark) {
+  await axios.post(`${BASE_URL}course/bookmark`, {
+    courseId: courseId,
+    userId: userId,
+  });
+}
+
+// 사용자 코스 좋아요 삭제
+export async function UnlikeCourseAPI({ userId, courseId }: Bookmark) {
+  await axios.delete(`${BASE_URL}course/bookmark/${userId}/${courseId}`);
+}
+
+// 사용자가 만든 코스 가져오기
+export async function UserCoursesAPI(userId: number) {
+  const result = await axios
+    .get(`${BASE_URL}course/custom-course/${userId}?page=1&size=10`)
+    .then(res => res.data.list);
+  if (result === null) return [];
+  return result.content.map((data: any) => {
+    return {
+      courseId: data.courseId,
+      courseName: data.courseName,
+    };
+  });
+}
+
+// 사용자가 좋아요한 코스 가져오기
+export async function UserLikesAPI(userId: number) {
+  const result = await axios
+    .get(`${BASE_URL}course/bookmark-list/${userId}`)
+    .then(res => res.data.list);
+  if (result === null) return [];
+  return result.map((data: any) => {
+    return {
+      courseId: data.courseId,
+      courseName: data.courseName,
+    };
+  });
+}
+
+// 사용자 정보 가져오기
+export async function UserInfoAPI(userEmail: string) {
+  const info = await axios
     .get(`${BASE_URL}user/user/{userEmail}?userEmail=${userEmail}`)
     .then(res => res.data);
-  return datas;
+  const courses = await UserCoursesAPI(info.userId);
+  const likes = await UserLikesAPI(info.userId);
+  const result = {
+    userInfo: info,
+    userCourses: courses,
+    userLikes: likes,
+  };
+  return result;
 }
