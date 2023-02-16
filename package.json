@@ -15,7 +15,6 @@
     "@nivo/pie": "^0.79.1",
     "@nivo/treemap": "^0.79.1",
     "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
     "antd": "^4.19.2",
     "axios": "^0.26.1",
@@ -40,6 +39,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
+    "@types/react": "^18.0.28",
     "@types/react-redux": "^7.1.25",
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.14.0",

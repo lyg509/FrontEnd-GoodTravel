@@ -4,7 +4,7 @@ import { Ul } from './Nav.style';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { login, userInfo } from '../../store/user';
+import { logIn, userInfo } from '../../store/user';
 interface RightNavProps {
   open: boolean;
 }
@@ -15,16 +15,16 @@ const RightNav: NextPage<RightNavProps> = ({ open }) => {
     sessionStorage.clear(); // userToken 세션스토리지 삭제
     document.location.href = '/'; // 로그아웃 처리하면 새로고침 해서 세션 사라진 걸 인식 해줘야함.
   };
-  const setLogin = useCallback(()=> {
-    dispatch(login());
+  const setLogin = useCallback(() => {
+    dispatch(logIn());
   }, []);
   useEffect(() => {
-    let userEmail: string | null = sessionStorage.getItem('userEmail');
+    let userEmail: any = sessionStorage.getItem('userEmail');
     if (!isLogin && sessionStorage.getItem('userToken')) {
       setLogin();
       dispatch(userInfo.request(userEmail));
     }
-  })
+  }, []);
   return (
     <>
       <Ul open={open}>
@@ -45,6 +45,16 @@ const RightNav: NextPage<RightNavProps> = ({ open }) => {
         </li>
         {isLogin ? (
           <>
+            <li>
+              <Link href="/mypage">
+                <label>마이페이지</label>
+              </Link>
+            </li>
+            <li>
+              <Link href="/chat">
+                <label>채팅</label>
+              </Link>
+            </li>
             <li>
               <Link href="/mypage">
                 <label>마이페이지</label>

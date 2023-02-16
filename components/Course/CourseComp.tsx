@@ -11,14 +11,36 @@ import { RootState } from '../../store';
 
 const CourseComp: NextPage = () => {
   const dummy = [
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
-    { courseId: 1, courseName: '임시 데이터' },
+    {
+      courseId: 1,
+      courseName: '임시 데이터',
+      image:
+        'https://newsimg.hankookilbo.com/cms/articlerelease/2021/10/11/7d43baac-4f90-4ed8-9553-9cf488b2eff9.jpg',
+    },
+    {
+      courseId: 1,
+      courseName: '임시 데이터',
+      image:
+        'https://newsimg.hankookilbo.com/cms/articlerelease/2021/10/11/7d43baac-4f90-4ed8-9553-9cf488b2eff9.jpg',
+    },
+    {
+      courseId: 1,
+      courseName: '임시 데이터',
+      image:
+        'https://newsimg.hankookilbo.com/cms/articlerelease/2021/10/11/7d43baac-4f90-4ed8-9553-9cf488b2eff9.jpg',
+    },
+    {
+      courseId: 1,
+      courseName: '임시 데이터',
+      image:
+        'https://newsimg.hankookilbo.com/cms/articlerelease/2021/10/11/7d43baac-4f90-4ed8-9553-9cf488b2eff9.jpg',
+    },
+    {
+      courseId: 1,
+      courseName: '임시 데이터',
+      image:
+        'https://newsimg.hankookilbo.com/cms/articlerelease/2021/10/11/7d43baac-4f90-4ed8-9553-9cf488b2eff9.jpg',
+    },
   ];
   const { userInfo } = useSelector((state: RootState) => state.user);
   const { searchCourses, searchKeyword } = useSelector(
@@ -26,7 +48,7 @@ const CourseComp: NextPage = () => {
   );
   return (
     <>
-      
+      <Nav />
       <Menu currentName="코스추천" />
       <Wrapper>
         <CourseWrapper>
@@ -40,11 +62,12 @@ const CourseComp: NextPage = () => {
                 <CourseList data={searchCourses} />
               </div>
             )}
-              {userInfo.userName.length > 0 ? (
-                  <div className="title">{userInfo.userName}님 맞춤 추천 코스</div>
-               ) : (
-                  <div className="title">혼자어때가 추천하는 여행 코스</div>
-               )}
+            {userInfo.userName.length > 0 ? (
+              <div className="title">{userInfo.userName}님 맞춤 추천 코스</div>
+            ) : (
+              <div className="title">여행어때가 추천하는 여행 코스</div>
+            )}
+
             <CourseList data={dummy} />
             <div className="title">푸른 자연을 느낄 수 있는 코스</div>
             <CourseList data={dummy} />

@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { getTestResult, saveTestResult } from './actions';
-import { GetTestResultAPI, SaveTestResultAPI } from './apis';
+import { getTestResult } from './actions';
+import { GetTestResultAPI } from './api';
 
 function* getTestResultSaga() {
   try {
@@ -11,20 +11,6 @@ function* getTestResultSaga() {
   }
 }
 
-function* saveTestResultSaga({
-  payload,
-}: ReturnType<typeof saveTestResult.request>) {
-  try {
-    const result: number = yield call(SaveTestResultAPI, payload);
-    yield put(saveTestResult.success(result));
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export function* travelSaga() {
-  yield all([
-    takeLatest(getTestResult.request, getTestResultSaga),
-    takeLatest(saveTestResult.request, saveTestResultSaga),
-  ]);
+  yield all([takeLatest(getTestResult.request, getTestResultSaga)]);
 }
