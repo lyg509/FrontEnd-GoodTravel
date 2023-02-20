@@ -2,9 +2,11 @@ import { createReducer } from 'typesafe-actions';
 import { Course2Action, Course2State } from './types';
 import produce from 'immer';
 import {
+  GET_AREA_COURSES_SUCCESS,
   GET_COURSE_DETAIL_SUCCESS,
-  GET_POPULAR_COURSES_SUCCESS,
+  GET_MAIN_DATA_SUCCESS,
 } from './actions';
+import { AreaCourses } from '../../components/Main/MainPage.style';
 
 const initialCourseInfoState = {
   // courseId: 0,
@@ -17,6 +19,8 @@ const initialCourseInfoState = {
 };
 
 const initialState: Course2State = {
+  areaCourseCount: [],
+  areaCourses: [],
   popularCourses: [],
   courseId: 0,
   courseInfo: initialCourseInfoState,
@@ -28,9 +32,10 @@ const initialState: Course2State = {
 };
 
 const course2 = createReducer<Course2State, Course2Action>(initialState, {
-  [GET_POPULAR_COURSES_SUCCESS]: (state, action) =>
+  [GET_MAIN_DATA_SUCCESS]: (state, action) =>
     produce(state, draft => {
-      draft.popularCourses = action.payload;
+      draft.areaCourseCount = action.payload.areaCourseCount;
+      draft.popularCourses = action.payload.popularCourses;
     }),
   [GET_COURSE_DETAIL_SUCCESS]: (state, action) =>
     produce(state, draft => {
@@ -41,6 +46,10 @@ const course2 = createReducer<Course2State, Course2Action>(initialState, {
       draft.courseType = action.payload.courseType;
       draft.courseTag = action.payload.courseTag;
       draft.coursePercentage = action.payload.coursePercentage;
+    }),
+  [GET_AREA_COURSES_SUCCESS]: (state, action) =>
+    produce(state, draft => {
+      draft.areaCourses = action.payload;
     }),
 });
 

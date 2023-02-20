@@ -7,19 +7,23 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_UP_SUCCESS,
   USER_INFO_SUCCESS,
+  SAVE_TEST_RESULT_SUCCESS,
+  MY_COURSE_SUCCESS,
+  VISIT_COURSE_SUCCESS,
 } from './actions';
 import produce from 'immer';
 
 const initialState: UserState = {
   userInfo: {
     userId: 0,
-    tourTestId: '',
+    tourTestId: 0,
     userName: '',
   },
   userCourses: [],
   userLikes: [],
   isLogin: false,
   isSignUp: false,
+  userVisitCourses: [],
 };
 
 const user = createReducer<UserState, UserAction>(initialState, {
@@ -40,12 +44,15 @@ const user = createReducer<UserState, UserAction>(initialState, {
       draft.userInfo = action.payload.userInfo;
       draft.userCourses = action.payload.userCourses;
       draft.userLikes = action.payload.userLikes;
+      draft.userVisitCourses = action.payload.userVisitCourses;
+      console.log('방문코스 기록 리듀서', action.payload.userVisitCourses);
     }),
   [LIKE_COURSE_SUCCESS]: (state, action) =>
     produce(state, draft => {
       draft.userLikes.push({
         courseId: action.payload.courseId,
         courseName: action.payload.courseName,
+        image: action.payload.courseName,
       });
     }),
   [UNLIKE_COURSE_SUCCESS]: (state, action) =>
@@ -54,6 +61,20 @@ const user = createReducer<UserState, UserAction>(initialState, {
         data => data.courseId !== action.payload.courseId,
       );
     }),
+  [SAVE_TEST_RESULT_SUCCESS]: (state, action) =>
+    produce(state, draft => {
+      draft.userInfo.tourTestId = action.payload;
+    }),
+  [MY_COURSE_SUCCESS]: (state, action) =>
+    produce(state, draft => {
+      console.log('코스등록 성공', action);
+      draft.userCourses = action.payload;
+    }),
+  // [VISIT_COURSE_SUCCESS]: (state, action) =>
+  //   produce(state, draft => {
+  //     console.log('방문코스 기록 리듀서', action);
+  //     draft.visitCourse = action.payload;
+  //   }),
 });
 
 export default user;
