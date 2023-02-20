@@ -1,59 +1,116 @@
-import { useEffect } from 'react';
-import { MapContainer } from '../../styles/variables';
+import styled from 'styled-components';
 
-interface MapProps {
-  positions: { title: string; lat: number; lng: number }[];
-}
+const MypageWrapper = styled.div<{ height: string }>`
+  margin-top: 20px;
+  width: 100%;
+  height: ${props => props.height};
+  background-color: ${props => props.theme.colors.backgroundColor};
+  border-radius: 1vw;
+  .subTitle {
+    height: 10px;
+    padding: 15px;
+    font-size: 20px;
+    font-family: 'Jalnan';
+  }
+  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+`;
 
-const MypageMap = ({ positions }: MapProps) => {
-  useEffect(() => {
-    const mapScript = document.createElement('script');
+const GraphWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  .LGraph {
+    border-radius: 1vw;
+    width: 48%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    div {
+      font-family: 'Jalnan';
+    }
+  }
+  .RGraph {
+    border-radius: 1vw;
+    width: 48%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    div {
+      font-family: 'Jalnan';
+    }
+  }
+`;
+const DefaultImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 90%;
+    border-radius: 1vw;
+  }
+`;
 
-    mapScript.async = true;
-    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
-    document.head.appendChild(mapScript);
+const MyTravleWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 95%;
+  .map {
+    border-radius: 1vw;
+    width: 48%;
+    height: 90%;
+    background-color: white;
+  }
+  .diary {
+    border-radius: 1vw;
+    width: 48%;
+    height: 90%;
+    background-color: white;
+  }
+`;
 
-    const onLoadKakaoMap = () => {
-      window.kakao.maps.load(() => {
-        const container = document.getElementById('map');
-        const options = {
-          center: new window.kakao.maps.LatLng(36.527327, 127.651767), // 중심 좌표
-          level: 14, // map 크기
-        };
-        const map = new window.kakao.maps.Map(container, options);
-         // 마커 이미지
-        var imageSrc =
-            'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+const DiaryWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 0 10px;
+  #title {
+    /* pa */
+    border-radius: 1vw;
+    /* background-color: black; */
+    height: 10%;
+    /* color: white; */
+  }
+  #image {
+    border-radius: 1vw;
+    height: 35%;
+    /* background-color: black; */
+    /* color: white; */
+  }
+  #content {
+    border-radius: 1vw;
+    height: 45%;
+    /* background-color: black; */
+    /* color: white; */
+  }
+`;
 
-        for (var i = 0; i < positions.length; i++) {
-          // 마커 이미지의 이미지 크기
-          var imageSize = new window.kakao.maps.Size(24, 35);
-
-          // 마커 이미지를 생성
-          var markerImage = new window.kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize,
-          );
-
-          // 마커를 생성
-          let marker = new window.kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: new window.kakao.maps.LatLng( // 내가 방문한 코스 마커
-              positions[i].lat,
-              positions[i].lng,
-            ), // 마커를 표시할 위치
-            title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시            image: markerImage, // 마커 이미지
-          });
-          window.kakao.maps.event.addListener(marker, 'click', function () {
-            console.log(marker.Gb);
-          });
-        }
-      });
-    };
-    mapScript.addEventListener('load', onLoadKakaoMap);
-    return () => mapScript.removeEventListener('load', onLoadKakaoMap);
-  });
-  return <MapContainer id="map"></MapContainer>;
+export {
+  MypageWrapper,
+  GraphWrapper,
+  MyTravleWrapper,
+  DiaryWrapper,
+  DefaultImage,
 };
-
-export default MypageMap;

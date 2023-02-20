@@ -48,12 +48,30 @@ export type UserDetail = {
   userCourses: Course[];
   userLikes: Course[];
   userVisitCourses: VisitCourse[];
+  areaCourses: AreaCourse[];
+  monthCourses: MonthCourse[];
 };
 
 export type VisitCourse = {
+  recordId: number;
+  courseName: string;
   courseId: number;
+  touristId: number;
   touristLat: number;
   touristLng: number;
+  recordContent: string;
+  recordRegDt: string;
+  fileId: number;
+};
+
+export type MonthCourse = {
+  date: number;
+  count: number;
+};
+
+export type AreaCourse = {
+  id: string;
+  value: number;
 };
 
 export type UserState = {
@@ -63,4 +81,6 @@ export type UserState = {
   isLogin: boolean;
   isSignUp: boolean;
   userVisitCourses: VisitCourse[];
+  areaCourses: AreaCourse[];
+  monthCourses: MonthCourse[];
 };
