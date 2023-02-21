@@ -1,62 +1,78 @@
-import { useEffect } from 'react';
-import { MapContainer } from '../../styles/variables';
+import { NextPage } from 'next';
+import Menu from '../Nav/Menu';
+import Nav from '../Nav/Nav';
+import { LocationWrapper } from './Location.styled';
+import Footer from '../Footer/Footer';
+import MapList from './MapList';
+import ImageList from './ImageList';
+import TourDetail from './TourDetail';
+import { Wrapper } from '../../styles/variables';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchLocation } from '../../store/location';
+import { RootState } from '../../store';
 
-interface MapProps {
-  positions: { title: string; lat: number; lng: number }[];
-}
-
-const LocationMap = ({ positions }: MapProps) => {
-  useEffect(() => {
-    const mapScript = document.createElement('script');
-
-    mapScript.async = true;
-    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`;
-    document.head.appendChild(mapScript);
-
-    const onLoadKakaoMap = () => {
-      window.kakao.maps.load(() => {
-        const container = document.getElementById('map');
-        const options = {
-          center: new window.kakao.maps.LatLng(
-            positions[0].lat,
-            positions[0].lng,
-          ), // 중심 좌표
-          level: 6, // map 크기
-        };
-        const map = new window.kakao.maps.Map(container, options);
-        var imageSrc = // 마커 이미지
-          'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
-
-        for (var i = 0; i < positions.length; i++) {
-          // 마커 이미지의 이미지 크기 입니다
-          var imageSize = new window.kakao.maps.Size(24, 35);
-
-          // 마커 이미지를 생성합니다
-          var markerImage = new window.kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize,
-          );
-
-          // 마커를 생성합니다
-          let marker = new window.kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: new window.kakao.maps.LatLng( // 내가 방문한 코스 마커
-              positions[i].lat,
-              positions[i].lng,
-            ), // 마커를 표시할 위치
-            title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-            image: markerImage, // 마커 이미지
-          });
-          window.kakao.maps.event.addListener(marker, 'click', function () {
-            console.log(marker.Gb);
-          });
-        }
-      });
+const LocationComp: NextPage = () => {
+  const dispatch = useDispatch();
+  const [latitude, setLatitude] = useState<number>(0);
+  const [longitude, setLongitude] = useState<number>(0);
+  const { searchLoactions, selectLocation } = useSelector(
+    (state: RootState) => state.location,
+  );
+  const lists: string[] = [];
+  let images: string[] = [];
+  const positions = searchLoactions.map((searchLocation, idx) => {
+    // 관광지 지도를 위한 lat,lng,title 뽑아낸 data
+    lists.push(searchLocation.touristName);
+    if (selectLocation == searchLocation.touristName) {
+      images = searchLocation.image;
+    }
+    return {
+      title: searchLocation.touristName,
+      lat: searchLocation.touristLat,
+      lng: searchLocation.touristLng,
     };
-    mapScript.addEventListener('load', onLoadKakaoMap);
-    return () => mapScript.removeEventListener('load', onLoadKakaoMap);
   });
-  return <MapContainer id="map"></MapContainer>;
+  useEffect(() => {
+    // 위도 경도 파악
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: any) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      });
+    }
+  }, []);
+
+  const searchLocationData = useCallback(() => {
+    dispatch(searchLocation.request({ lat: latitude, lng: longitude }));
+  }, [dispatch, latitude, longitude]);
+
+  useEffect(() => {
+    // 위도 경도 파악
+    if (latitude != 0 && longitude != 0) {
+      // 위 경도가 파악 되었을 때
+      searchLocationData();
+    }
+  }, [latitude, longitude]);
+  return (
+    <>
+      <Nav />
+      <Menu currentName="내 위치 주변 관광지" />
+      <Wrapper>
+        <LocationWrapper>
+          <div>
+            <div className="subTitle">관광지 목록</div>
+            <MapList positions={positions} lists={lists} />
+            <div className="subTitle">이미지</div>
+            <ImageList images={images} />
+            <div className="subTitle">{selectLocation}</div>
+            <TourDetail />
+          </div>
+        </LocationWrapper>
+      </Wrapper>
+      <Footer />
+    </>
+  );
 };
 
-export default LocationMap;
+export default LocationComp;

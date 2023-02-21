@@ -48,11 +48,11 @@ const CourseComp: NextPage = () => {
                   {userInfo.userName}님 맞춤 추천 코스
                 </div>
               ) : (
-                <div className="title">여행어때가 추천하는 여행 코스</div>
+                <div className="title">혼자어때가 추천하는 여행 코스</div>
               )}
               {userCourses.length != 0 && <CourseList data={userCourses} />}
               {keywordCourses.map((keywordCourse: any, idx) => (
-                <div>
+                <div key={idx}>
                   <div className="title">
                     {
                       KEYWORD.titles[
