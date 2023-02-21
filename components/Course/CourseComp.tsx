@@ -25,7 +25,6 @@ const CourseComp: NextPage = () => {
 
   const { searchCourses, searchKeyword, keywordCourses, userCourses } =
     useSelector((state: RootState) => state.course);
-  console.log(keywordCourses);
   return (
     <>
       <Nav />
@@ -49,9 +48,9 @@ const CourseComp: NextPage = () => {
                   {userInfo.userName}님 맞춤 추천 코스
                 </div>
               ) : (
-                <div className="title">혼자어때가 추천하는 여행 코스</div>
+                <div className="title">여행어때가 추천하는 여행 코스</div>
               )}
-              <CourseList data={userCourses} />
+              {userCourses.length != 0 && <CourseList data={userCourses} />}
               {keywordCourses.map((keywordCourse: any, idx) => (
                 <div>
                   <div className="title">

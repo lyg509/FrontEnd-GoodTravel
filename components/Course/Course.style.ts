@@ -33,6 +33,11 @@ const CourseBlock = styled.div`
     font-weight: bold;
     font-family: 'Jalnan';
   }
+  @media ${props => props.theme.mobile} {
+    .title {
+      font-size: 15px;
+    }
+  }
 `;
 
 // searchForm
@@ -58,6 +63,9 @@ const Button = styled.button`
   :active {
     transform: scale(0.98);
   }
+  @media ${props => props.theme.mobile} {
+    font-size: 10px;
+  }
 `;
 
 //course Form
@@ -65,10 +73,6 @@ const CourseFormWrapper = styled.div`
   display: flex;
   overflow-x: auto;
   margin-top: 30px;
-  #space {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
   #card {
     cursor: pointer;
   }
