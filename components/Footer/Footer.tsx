@@ -4,9 +4,9 @@ import { Wrapper } from './Footer.style';
 const Footer: NextPage = () => {
   return (
     <Wrapper>
-      <div>Copyright ⓒ Honja Corp. All rights reserved</div>
-      <div>주소 : 부산 강서구 녹산산업중로 333</div>
-      <div>email : Honja@naver.com</div>
+      <div>Copyright ⓒ 여행어때 Corp. All rights reserved</div>
+      <div>주소 : 성남시 수정구 태평동</div>
+      <div>email : 여행어때@naver.com</div>
     </Wrapper>
   );
 };

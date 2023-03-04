@@ -37,9 +37,18 @@ export type TagCode = {
   tag: Tag[];
 };
 
+export type Review = {
+  tag: number[][];
+  tourId: number;
+  userId: number;
+  recordContent?: string;
+  image?: File;
+};
+
 export type RecordState = {
   tourId: number;
   courseName: string;
   stamps: Stamp[];
-  tag: TagCode[];
+  tag: TagCode[]; // tag 속성 추가
+  review?: Review; // review 속성 추가
 };
