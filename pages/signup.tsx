@@ -5,4 +5,4 @@ const Signup: NextPage = () => {
   return <SignupPage />;
 };
 
-export default Signup;
+export default SignupPage;

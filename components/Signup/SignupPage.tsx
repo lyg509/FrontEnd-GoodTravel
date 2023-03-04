@@ -53,7 +53,7 @@ const SignupPage: NextPage = () => {
     <>
       <LoginWrapper>
         <Link href="/">
-          <div id="title">혼자어때. </div>
+          <div id="title">여행어때. </div>
         </Link>
         <SignupBlock>
           <div id="loginName">Signup</div>

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import MypageComp from '../components/MyPage/MypageComp';
+import MypageComp from '../components/Mypage/MypageComp';
 
 const Mypage: NextPage = () => {
   return <MypageComp />;

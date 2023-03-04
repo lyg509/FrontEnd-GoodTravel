@@ -8,6 +8,9 @@ const Header = styled.div`
     cursor: pointer;
   }
   padding-bottom: 60px;
+  .end {
+    cursor: default;
+  }
 `;
 
 const Title = styled.div`
@@ -67,6 +70,7 @@ const CourseImage = styled.div`
       height: 350px;
       width: 100%;
       object-fit: cover;
+      border: 1px solid ${props => props.theme.colors.backgroundColor};
     }
   }
   .course-image-content {
@@ -76,8 +80,9 @@ const CourseImage = styled.div`
     color: white;
     padding: 10px;
     padding-bottom: 30px;
-    bottom: 0%;
-    width: 100%;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
   }
   .course-image-content .name {
     font-size: 15px;
@@ -97,15 +102,6 @@ const Content = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
-  /* .graph {
-    height: 200px;
-    min-width: 450px;
-  }
-  .new {
-    height: 200px;
-    text-align: center;
-    font-size: 20px;
-  } */
   font-size: 15px;
   margin-top: 20px;
   padding: 20px;
@@ -120,8 +116,8 @@ const Review = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
-  .content {
-    padding: 10px 30px;
+  & > div {
+    padding: 0px 20px;
     .slick-prev {
       width: 30px;
       height: 30px;
@@ -143,19 +139,18 @@ const ReviewImage = styled.div`
     height: 240px;
     width: 100%;
     object-fit: cover;
+    border: 1px solid ${props => props.theme.colors.backgroundColor};
   }
   .email {
     display: inline-block;
     padding: 2px 6px;
     font-size: 12px;
     position: absolute;
-    bottom: 0;
+    bottom: 1px;
+    left: 1px;
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
   }
-`;
-const ReviewCard = styled.div`
-  padding: 0 10px;
 `;
 
 const GraphBlock = styled.div`
@@ -183,10 +178,15 @@ const GraphPie = styled.div`
   @media ${props => props.theme.laptopS} {
   }
 `;
-
+const CourseDetail = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+`;
 export {
   Header,
   Title,
+  CourseDetail,
   CourseMap,
   CourseImage,
   CourseIndex,
@@ -196,5 +196,4 @@ export {
   GraphPie,
   Review,
   ReviewImage,
-  ReviewCard,
 };

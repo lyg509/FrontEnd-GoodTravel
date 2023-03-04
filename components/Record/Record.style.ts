@@ -1,7 +1,44 @@
 import { Card } from 'antd';
-import { url } from 'inspector';
 import styled from 'styled-components';
 
+const TourMap = styled.div`
+  height: 350px;
+  @media ${props => props.theme.tablet} {
+    height: 300px;
+  }
+  .customoverlay {
+    position: relative;
+    border-radius: 20px;
+    float: left;
+  }
+  .customoverlay:nth-of-type(n) {
+    position: relative;
+    bottom: 55px;
+    left: 3px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    float: left;
+  }
+  .customoverlay .title {
+    display: block;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .customoverlay:after {
+    content: '';
+    position: absolute;
+    margin-left: -12px;
+    left: 50%;
+    bottom: -12px;
+    width: 22px;
+    height: 12px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+    opacity: 0.5;
+  }
+`;
 const ReviewBlock = styled.div`
   margin: 20px 0;
   padding: 20px;
@@ -48,6 +85,9 @@ const TagButton = styled.div<{ state: number }>`
 `;
 const StampBlock = styled.div`
   margin: 20px 10px;
+  @media ${props => props.theme.mobile} {
+    margin: 20px 0px;
+  }
 `;
 
 const StampCard = styled.div<{ $state: boolean }>`
@@ -113,6 +153,8 @@ const StampCardContent = styled(Card)<{ $state: boolean }>`
   margin: 20px;
   margin-left: 40px;
   height: 200px;
+  background-color: ${props =>
+    props.$state ? props.theme.colors.backgroundColor : 'white'};
   .stamp-card-index {
     display: inline-block;
     width: 35px;
@@ -154,9 +196,25 @@ const StampCardContent = styled(Card)<{ $state: boolean }>`
       margin: 5px 0;
     }
   }
+  @media ${props => props.theme.mobile} {
+    margin-left: 0px;
+    .stamp-card-address {
+      display: none;
+    }
+  }
+`;
+const RecordHeader = styled.div`
+  font-family: 'Jalnan';
+  font-size: 30px;
+  margin: 10px 0;
+  @media ${props => props.theme.mobile} {
+    font-size: 20px;
+  }
 `;
 
 export {
+  RecordHeader,
+  TourMap,
   ReviewBlock,
   TagBlock,
   TagButton,

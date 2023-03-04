@@ -1,4 +1,4 @@
-mport { NextPage } from 'next';
+import { NextPage } from 'next';
 import { ResponsivePie } from '@nivo/pie';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
