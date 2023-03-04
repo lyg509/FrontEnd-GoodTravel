@@ -28,4 +28,5 @@ export async function SearchLocationAPI({ lat, lng }: SearchLocationResult) {
       touristSummary: data.touristSummary,
     };
   });
-  return result;
+  return result
+}
