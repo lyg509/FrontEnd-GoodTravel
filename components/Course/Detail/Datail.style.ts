@@ -41,10 +41,8 @@ const Header = styled.div`
 
 const CourseMap = styled.div`
   height: 350px;
-  width: 450px;
   @media ${props => props.theme.tablet} {
     height: 300px;
-    width: 100%;
   }
   .customoverlay {
     position: relative;
@@ -82,7 +80,6 @@ const CourseMap = styled.div`
 
 const CourseImage = styled.div`
   height: 350px;
-  width: 450px;
   margin-left: 10px;
   .course-image {
     position: relative;
@@ -107,10 +104,6 @@ const CourseImage = styled.div`
   .course-image-content .name {
     font-size: 15px;
     font-weight: bold;
-  }
-  @media ${props => props.theme.tablet} {
-    width: 100%;
-    margin-left: 0px;
   }
 `;
 
@@ -142,24 +135,25 @@ const Review = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
-  .content {
-    padding: 0 30px;
-    .slick-prev:before,
-    .slick-next:before {
-      color: gray;
-      font-family: 'slick';
-      font-size: 20px;
-      line-height: 1;
-      opacity: 0.75;
+  & > div {
+    padding: 0px 20px;
+    .slick-prev {
+      width: 30px;
+      height: 30px;
+      background-image: url('/images/left_arrow.png');
+      background-size: cover;
+    }
+    .slick-next {
+      width: 30px;
+      height: 30px;
+      background-image: url('/images/right_arrow.png');
+      background-size: cover;
     }
   }
 `;
-const ReviewCard = styled.div`
-  padding: 0 10px;
-`;
-
+const ReviewCard = styled.div``;
 const ReviewImage = styled.div`
-  position: relative;
+  /* position: relative;
   img {
     height: 240px;
     width: 100%;
@@ -175,7 +169,7 @@ const ReviewImage = styled.div`
     left: 1px;
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
-  }
+  } */
 `;
 
 const GraphBlock = styled.div`
@@ -221,14 +215,9 @@ const GraphPie = styled.div`
   }
 `;
 const CourseDetail = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  @media ${props => props.theme.tablet} {
-    flex-direction: column;
-    justify-content: center;
-  }
-  padding: 0 10px;
+  /* display: flex;
+  justify-content: center;
+  flex-direction: row; */
 `;
 const TagBlock = styled.div`
   padding: 0 10px;

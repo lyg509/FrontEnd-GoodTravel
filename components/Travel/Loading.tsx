@@ -1,10 +1,11 @@
-import React from 'react';
-import { TestLoading } from './Travel.style';
+import React , {useEffect, useState} from 'react';
+
 export default function Loading() {
   return (
-    <TestLoading>
-      <div className="loading-title">산신령의 결과 분석 중... 💨</div>
-      <img src="/images/loading.gif" alt="loading" />
-    </TestLoading>
+    <div>
+      <h1>산신령의 결과 분석 중...</h1>
+      <img src="/images/혼구링.png" alt="loading"  width="100%"/>
+      <h3>3초 후 분석이 완료됩니다.</h3>
+    </div>
   );
 }

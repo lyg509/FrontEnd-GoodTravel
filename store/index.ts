@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import course, { courseSaga, CourseState } from './course';
-import detail, { detailSaga, DetailState } from './detail';
+import course2, { course2Saga, Course2State } from './course2';
 import travel, { travelSaga, TravelState } from './travel';
 import location, { locationSaga, LocationState } from './location';
 import user, { userSaga, UserState } from './user';
@@ -14,7 +14,7 @@ export function* rootSaga() {
     userSaga(),
     courseSaga(),
     travelSaga(),
-    detailSaga(),
+    course2Saga(),
     locationSaga(),
     registerSaga(),
     recordSaga(),
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   user,
   course,
   travel,
-  detail,
+  course2,
   location,
   register,
   record,
@@ -38,7 +38,7 @@ export type RootState = {
   user: UserState;
   course: CourseState;
   travel: TravelState;
-  detail: DetailState;
+  course2: Course2State;
   location: LocationState;
   register: RegisterState;
   record: RecordState;

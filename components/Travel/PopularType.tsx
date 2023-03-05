@@ -12,7 +12,7 @@ export default function PopularType({ type, rank }: PopularTypeType) {
     <PopularTypeBlock>
       <div>{rank}위</div>
       <div className="popular-title">{TEST.results[type].title}</div>
-      <img src={TEST.results[type].image} />
+      <img src="/images/3.png" />
     </PopularTypeBlock>
   );
 }

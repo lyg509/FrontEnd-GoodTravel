@@ -9,5 +9,6 @@ const Wrapper = styled.div`
 `;
 const MapContainer = styled.div`
   height: 100%;
+  border-radius: 1vw;
 `;
 export { Wrapper, MapContainer };

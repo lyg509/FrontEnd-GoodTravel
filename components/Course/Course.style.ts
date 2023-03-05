@@ -14,6 +14,16 @@ const CourseWrapper = styled.div`
       font-size: 15px;
     }
   }
+  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .Coursestyle__CourseFormWrapper-sc-ozxrvz-4 {
+    margin-top: 10px;
+  }
 `;
 
 const CourseBlock = styled.div`
@@ -31,6 +41,7 @@ const CourseBlock = styled.div`
 `;
 
 // searchForm
+
 const SearchFormWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -65,21 +76,9 @@ const CourseFormWrapper = styled.div`
   #card {
     cursor: pointer;
   }
-  /* overflow-x: scroll;
-  &::-webkit-scrollbar {
-    width: 10px;
+  ::-webkit-scrollbar {
+    display: none;
   }
-  &::-webkit-scrollbar-thumb {
-    background-color: #d2d0d0;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 5px white;
-  } */
 `;
 
 export {

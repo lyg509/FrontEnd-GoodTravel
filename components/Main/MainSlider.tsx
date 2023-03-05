@@ -1,36 +1,27 @@
 import React from 'react';
+import { Carousel } from 'antd';
 import { SliderCard } from './Main.style';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
-const MainSlider = () => {
-  const { popularCourses } = useSelector((state: RootState) => state.detail);
+const showCourse = () => {
+  const { popularCourses } = useSelector((state: RootState) => state.course2);
 
-  const settings = {
-    speed: 1000,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    arrows: false,
-    dots: true,
-  };
   return (
-    <>
-      <Slider {...settings}>
-        {popularCourses.length > 0 &&
-          popularCourses.map(data => (
-            <Link href={`/course/${data.courseId}`} key={data.courseId}>
-              <SliderCard image={data.image}>
-                <div className="title">{data.courseName}</div>
-              </SliderCard>
-            </Link>
-          ))}
-      </Slider>
-    </>
+    popularCourses.length > 0 &&
+    popularCourses.map(data => (
+      <Link href={`/course/${data.courseId}`} key={data.courseId}>
+        <SliderCard>
+          <img src={data.image} alt={data.courseId + ''} />
+          <div className="title">{data.courseName}</div>
+        </SliderCard>
+      </Link>
+    ))
   );
+};
+const MainSlider = () => {
+  return <Carousel autoplay>{showCourse()}</Carousel>;
 };
 
 export default MainSlider;

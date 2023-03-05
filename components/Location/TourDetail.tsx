@@ -14,9 +14,11 @@ const TourDetail: NextPage = () => {
     }
   });
   return (
-    <ImageListWrapper>
-      <div>{selectContent}</div>
-    </ImageListWrapper>
+    <>
+      <ImageListWrapper height="200px">
+        <div style={{ padding: '10px' }}>{selectContent}</div>
+      </ImageListWrapper>
+    </>
   );
 };
 
