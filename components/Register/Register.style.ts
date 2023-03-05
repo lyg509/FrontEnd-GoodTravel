@@ -17,7 +17,7 @@ const RegisterWrapper = styled.div`
     height: 50px;
     font-size: 15px;
     border: none;
-    background-color: ${props => props.theme.colors.backgroundColor};
+    border: 1px solid lightgray;
     border-radius: 1vw;
     ::placeholder {
       font-size: 15px;
@@ -44,7 +44,7 @@ const RegisterWrapper = styled.div`
     width: 100%;
     height: 200px;
     border: none;
-    background-color: ${props => props.theme.colors.backgroundColor};
+    border: 1px solid lightgray;
     border-radius: 1vw;
     resize: none;
     width: 100%;
@@ -94,7 +94,7 @@ const TourListWrapper = styled.div`
   padding-top: 20px;
   width: 100%;
   height: 450px;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  border: 1px solid lightgray;
   border-radius: 1vw;
   display: flex;
   flex-wrap: wrap;
@@ -112,11 +112,9 @@ const ImageWrapper = styled.div`
     height: 80%;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 1vw;
     img {
       width: 100%;
       height: 100%;
-      border-radius: 1vw;
       object-fit: cover;
       &:hover {
         transform: scale(1.05);
@@ -144,7 +142,7 @@ const SelectListWrapper = styled.div`
   margin-top: 20px;
   width: 100%;
   border-radius: 1vw;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  border: 1px solid lightgray;
   display: flex;
   justify-content: flex-start;
   align-items: center;
