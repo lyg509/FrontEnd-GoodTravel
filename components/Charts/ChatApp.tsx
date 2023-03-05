@@ -4,24 +4,32 @@ import socketIOClient from 'socket.io-client';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setMessageList } from '../../store/chat';
+import {
+  setMessageList,
+  setSocketConnect,
+  setSocketId,
+} from '../../store/chat';
+import { Button, Modal } from 'antd';
+import { setModalState } from '../../store/chat';
 
-interface Message {
-  name: string;
-  message: string;
-}
-
-const socket = socketIOClient('localhost:4002');
-
+const socket = socketIOClient('https://localhost:4002');
 const ChatApp: NextPage = () => {
   const dispatch = useDispatch();
-  const { messageList } = useSelector((state: RootState) => state.chat);
+  const { messageList, isConnect } = useSelector(
+    (state: RootState) => state.chat,
+  );
   const { userInfo } = useSelector((state: RootState) => state.user);
   const { tourId } = useSelector((state: RootState) => state.record);
   const [value, setValue] = useState('');
+
+  // !초기 설정
   useEffect(() => {
-    // 채팅 방 입장
-    socket.emit('joinRoom', tourId, userInfo.userName);
+    if (!isConnect) {
+      dispatch(setSocketConnect(true));
+      dispatch(setSocketId(socket));
+      // 채팅 방 입장
+      socket.emit('joinRoom', tourId, userInfo.userName);
+    }
     socket.on('chat message', (msg: { name: string; message: string }) => {
       dispatch(setMessageList(msg));
     });
@@ -32,77 +40,102 @@ const ChatApp: NextPage = () => {
     socket.emit('chat message', tourId, userInfo.userName, value);
     setValue('');
   };
+
+  // !스크롤 하단 고정
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
+
   useEffect(() => {
     // 채팅 리스트가 업데이트 될 때마다 제일 아래로 내려주기
     scrollToBottom();
   }, [messageList]);
+
+  // !모달 설정
+  const { isModalVisible } = useSelector((state: RootState) => state.chat);
+
+  const handleCancel = () => {
+    dispatch(setModalState(false));
+  };
+
   return (
-    <ChatWrapper>
-      <ChatBlock>
-        <div className="app__wrap">
-          <div id="info" className="app__info">
-            혼자어때
-          </div>
-          <div id="info" className="app__title">
-            푸른 자연을 느낄 수 있는 코스 채팅방
-          </div>
-          <div id="chatWindow" className="app__window">
-            {messageList.map((data: Message, idx: number) =>
-              data.name == userInfo.userName ? (
-                <div key={idx} className="message">
-                  <div className="username">
-                    {data.name == '' ? '이름 없음' : data.name}
-                  </div>
-                  <div className="message-text">
-                    <div style={{ color: 'black' }}>{data.message}</div>
-                  </div>
-                </div>
-              ) : (
-                <div key={idx} className="my-message">
-                  <div className="username">
-                    {data.name == '' ? '이름 없음' : data.name}
-                  </div>
-                  <div className="message-text">
-                    <div style={{ color: 'white' }}>{data.message}</div>
-                  </div>
-                </div>
-              ),
-            )}
-            <div ref={messagesEndRef}></div>
-            {/* 채팅 스크롤 아래로 내려주기 */}
-          </div>
-          <form
-            className="chat-form"
-            onSubmit={(e: React.FormEvent<HTMLFormElement>) => submit(e)}
-          >
-            <div className="app__input__wrap">
-              <input
-                id="chatInput"
-                type="text"
-                autoFocus
-                className="app__input"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setValue(e.target.value)
-                }
-                value={value}
-                placeholder="대화를 입력해주세요"
-              />
-              <button
-                type="submit"
-                id="chatMessageSendBtn"
-                className="app__button"
+    <>
+      <Modal
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        bodyStyle={{
+          backgroundColor: '#F7323F',
+          height: '580px',
+        }}
+      >
+        <ChatWrapper>
+          <ChatBlock>
+            <div className="app__wrap">
+              <div id="info" className="app__info">
+                여행어때 채팅
+              </div>
+              <div id="info" className="app__title">
+                푸른 자연을 느낄 수 있는 코스 채팅방
+              </div>
+              <div id="chatWindow" className="app__window">
+                {messageList.map((data: any, idx: number) =>
+                  data.name == userInfo.userName ? (
+                    <div key={idx} className="message">
+                      <div className="username">
+                        {data.name == '' ? '이름 없음' : data.name}
+                      </div>
+                      <div className="message-text">
+                        <div style={{ color: 'black' }}>{data.message}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div key={idx} className="my-message">
+                      <div className="username">
+                        {data.name == '' ? '이름 없음' : data.name}
+                      </div>
+                      <div className="message-text">
+                        <div style={{ color: 'white' }}>{data.message}</div>
+                      </div>
+                    </div>
+                  ),
+                )}
+                {/* 채팅 스크롤 아래로 내려주기 */}
+                <div ref={messagesEndRef}></div>
+              </div>
+              <form
+                className="chat-form"
+                onSubmit={(e: React.FormEvent<HTMLFormElement>) => submit(e)}
               >
-                전송
-              </button>
+                <div className="app__input__wrap">
+                  <input
+                    id="chatInput"
+                    type="text"
+                    autoFocus
+                    className="app__input"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setValue(e.target.value)
+                    }
+                    value={value}
+                    placeholder="대화를 입력해주세요"
+                  />
+                  <button
+                    type="submit"
+                    id="chatMessageSendBtn"
+                    className="app__button"
+                  >
+                    전송
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </ChatBlock>
-    </ChatWrapper>
+          </ChatBlock>
+        </ChatWrapper>
+      </Modal>
+    </>
   );
 };
 
