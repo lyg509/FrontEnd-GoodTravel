@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const MypageWrapper = styled.div<{ height: string }>`
-  margin-top: 20px;
+  margin: 20px 0px;
   width: 100%;
   height: ${props => props.height};
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -25,6 +25,23 @@ const MypageWrapper = styled.div<{ height: string }>`
 `;
 
 const GraphWrapper = styled.div`
+  margin: 20px 0px;
+  width: 100%;
+  height: 400px;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  border-radius: 1vw;
+  @media ${props => props.theme.mobile} {
+    height: 650px;
+  }
+  .subTitle {
+    height: 10px;
+    padding: 15px;
+    font-size: 20px;
+    font-family: 'Jalnan';
+  }
+`;
+
+const GraphBlock = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -44,7 +61,7 @@ const GraphWrapper = styled.div`
   .RGraph {
     border-radius: 1vw;
     width: 48%;
-    height: 80%;
+    height: 77%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,9 +72,7 @@ const GraphWrapper = styled.div`
   }
   @media ${props => props.theme.mobile} {
     flex-direction: column;
-    margin: 10px 10px 0 0;
     .LGraph {
-      padding-top: 20px;
       border-radius: 1vw;
       width: 360px;
       height: 250px;
@@ -72,7 +87,6 @@ const GraphWrapper = styled.div`
     }
     .RGraph {
       border-radius: 1vw;
-      padding-top: 20px;
       width: 360px;
       height: 250px;
       display: flex;
@@ -102,18 +116,27 @@ const SubTitle = styled.div`
   }
 `;
 
-const DefaultImage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  img {
-    width: 90%;
-    border-radius: 1vw;
-    &:hover {
-      transform: scale(1.05);
-      transition: transform 0.5s;
-    }
+const CourseWrapper = styled.div`
+  margin: 20px 0px;
+  width: 100%;
+  height: 280px;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  border-radius: 1vw;
+  @media ${props => props.theme.mobile} {
+    height: 230px;
+  }
+  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .react-horizontal-scrolling-menu--scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .subTitle {
+    height: 10px;
+    padding: 15px;
+    font-size: 20px;
+    font-family: 'Jalnan';
   }
 `;
 
@@ -160,7 +183,6 @@ const DiaryWrapper = styled.div`
   justify-content: space-evenly;
   margin: 0 10px;
   #title {
-    border-radius: 1vw;
     height: 10%;
     font-family: 'Jalnan';
     margin: 10px;
@@ -180,7 +202,6 @@ const DiaryWrapper = styled.div`
     }
   }
   #content {
-    border-radius: 1vw;
     height: 40%;
     margin: 10px;
     text-decoration: underline;
@@ -190,7 +211,6 @@ const DiaryWrapper = styled.div`
   }
   @media ${props => props.theme.mobile} {
     #title {
-      border-radius: 1vw;
       height: 10%;
       font-family: 'Jalnan';
       margin: 10px;
@@ -209,7 +229,6 @@ const DiaryWrapper = styled.div`
       }
     }
     #content {
-      border-radius: 1vw;
       height: 40%;
       margin: 10px;
       text-decoration: underline;
@@ -221,9 +240,10 @@ const DiaryWrapper = styled.div`
 export {
   MypageWrapper,
   GraphWrapper,
+  GraphBlock,
   SubTitle,
   Title,
   MyTravleWrapper,
   DiaryWrapper,
-  DefaultImage,
+  CourseWrapper,
 };
