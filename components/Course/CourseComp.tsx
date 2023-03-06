@@ -15,16 +15,15 @@ import { KEYWORD } from '../../assets/keyword';
 
 const CourseComp: NextPage = () => {
   const dispatch = useDispatch();
-
+  const { userInfo } = useSelector((state: RootState) => state.user);
+  const { searchCourses, searchKeyword, keywordCourses, userCourses } =
+    useSelector((state: RootState) => state.course);
   useEffect(() => {
     // 첫 실행 시 검색결과가 있으면 지우기
     dispatch(resetSearchCourses());
     dispatch(recommendCourse.request(userInfo.userId));
   }, []);
-  const { userInfo } = useSelector((state: RootState) => state.user);
-
-  const { searchCourses, searchKeyword, keywordCourses, userCourses } =
-    useSelector((state: RootState) => state.course);
+  console.log(userInfo.userId);
   return (
     <>
       <Nav />
@@ -35,9 +34,7 @@ const CourseComp: NextPage = () => {
           <CourseWrapper>
             <SearchForm />
             <CourseBlock>
-              {searchCourses.length == 0 ? (
-                <></>
-              ) : (
+              {searchCourses.length > 0 && (
                 <div id="search">
                   <div className="title"> {searchKeyword} 관련 코스 추천</div>
                   <CourseList data={searchCourses} />
@@ -69,7 +66,6 @@ const CourseComp: NextPage = () => {
       ) : (
         <Loading />
       )}
-
       <Footer />
     </>
   );
