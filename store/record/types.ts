@@ -49,6 +49,6 @@ export type RecordState = {
   tourId: number;
   courseName: string;
   stamps: Stamp[];
-  tag: TagCode[]; // tag 속성 추가
-  review?: Review; // review 속성 추가
+  tag: TagCode[];
+  userCount: number;
 };
