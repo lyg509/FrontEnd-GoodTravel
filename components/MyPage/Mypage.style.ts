@@ -2,22 +2,14 @@ import styled from 'styled-components';
 
 const MypageWrapper = styled.div<{ height: string }>`
   margin: 20px 0px;
+  padding: 20px;
   width: 100%;
   height: ${props => props.height};
   border: 1px solid lightgray;
   border-radius: 1vw;
   .subTitle {
-    height: 10px;
-    padding: 15px;
     font-size: 20px;
-    font-family: 'Jalnan';
-  }
-  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-  .react-horizontal-scrolling-menu--scroll-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    font-weight: bold;
   }
   @media ${props => props.theme.mobile} {
     height: auto;
@@ -26,6 +18,7 @@ const MypageWrapper = styled.div<{ height: string }>`
 
 const GraphWrapper = styled.div`
   margin: 20px 0px;
+  padding: 20px;
   width: 100%;
   height: 400px;
   border: 1px solid lightgray;
@@ -34,10 +27,8 @@ const GraphWrapper = styled.div`
     height: 650px;
   }
   .subTitle {
-    height: 10px;
-    padding: 15px;
     font-size: 20px;
-    font-family: 'Jalnan';
+    font-weight: bold;
   }
 `;
 
@@ -115,25 +106,35 @@ const SubTitle = styled.div`
 
 const CourseWrapper = styled.div`
   margin: 20px 0px;
+  padding: 20px;
   width: 100%;
-  height: 280px;
   border: 1px solid lightgray;
   border-radius: 1vw;
   @media ${props => props.theme.mobile} {
-    height: 230px;
-  }
-  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-  .react-horizontal-scrolling-menu--scroll-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    height: 240px;
+    .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+      display: none;
+    }
   }
   .subTitle {
-    height: 10px;
-    padding: 15px;
     font-size: 20px;
-    font-family: 'Jalnan';
+    font-weight: bold;
+  }
+  .react-horizontal-scrolling-menu--scroll-container {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d2d0d0;
+      border-radius: 10px;
+      background-clip: padding-box;
+      border: 5px solid transparent;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
   }
 `;
 
