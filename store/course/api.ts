@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GetPopularCoursesAPI } from '../course2/api';
+import { GetPopularCoursesAPI } from '../detail/api';
 import { SearchCourseResult } from './types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -113,9 +113,18 @@ export async function KeywordCourseAPI() {
 
 export async function UserCourseAPI(payload: number) {
   const datas = await axios
-    .get(`https://localhost:5000/data/${payload}`)
+    .get(`https://localhost:5001/data/${payload}`)
     .then(res => {
-      return res.data;
+      // 중복 제거
+      let uniqueArr: any = [];
+      let uniqueId: any = [];
+      res.data.forEach((element: any) => {
+        if (!uniqueId.includes(element.course_id)) {
+          uniqueId.push(element.course_id);
+          uniqueArr.push(element);
+        }
+      });
+      return uniqueArr;
     });
   return datas;
 }
