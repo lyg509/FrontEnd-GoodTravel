@@ -12,7 +12,7 @@ import {
 import { Button, Modal } from 'antd';
 import { setModalState } from '../../store/chat';
 
-const socket = socketIOClient('https://j6e103.p.ssafy.io:4002');
+const socket = socketIOClient('https://localhost:4002');
 // const socket = socketIOClient('localhost:4002');
 const ChatApp: NextPage = () => {
   const dispatch = useDispatch();
@@ -20,8 +20,7 @@ const ChatApp: NextPage = () => {
     (state: RootState) => state.chat,
   );
   const { userInfo } = useSelector((state: RootState) => state.user);
-  const { courseUserCount } = useSelector((state: RootState) => state.detail);
-  const { tourId, courseName } = useSelector(
+  const { tourId, courseName, userCount } = useSelector(
     (state: RootState) => state.record,
   );
   const [value, setValue] = useState('');
@@ -78,9 +77,9 @@ const ChatApp: NextPage = () => {
       <ChatWrapper>
         <ChatBlock>
           <div className="app__wrap">
-            <div className="app__count">🙂현재 {courseUserCount}명 여행 중</div>
+            <div className="app__count">🙂현재 {userCount}명 여행 중</div>
             <div id="info" className="app__info">
-              혼자어때 채팅
+              여행어때 채팅
             </div>
             <div id="info" className="app__title">
               {courseName}

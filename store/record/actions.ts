@@ -1,5 +1,5 @@
 import { createAsyncAction } from 'typesafe-actions';
-import { MarkStamp, RecordState, Stamp, TagCode, Tour } from './types';
+import { MarkStamp, RecordState, Review, Stamp, TagCode, Tour } from './types';
 
 // 여행 정보 가져오기
 export const GET_TOUR_DETAIL_REQUEST = 'record/GET_TOUR_DETAIL_REQUEST';
@@ -22,9 +22,13 @@ export const MARK_STAMP_REQUEST = 'record/MARK_STAMP_REQUEST';
 export const MARK_STAMP_SUCCESS = 'record/MARK_STAMP_SUCCESS';
 export const MARK_STAMP_FAILURE = 'record/MARK_STAMP_FAILURE';
 // 태그 가져오기
-export const GET_TAG_REQUEST = 'course2/GET_TAG_REQUEST';
-export const GET_TAG_SUCCESS = 'course2/GET_TAG_SUCCESS';
-export const GET_TAG_FAILURE = 'course2/GET_TAG_FAILURE';
+export const GET_TAG_REQUEST = 'record/GET_TAG_REQUEST';
+export const GET_TAG_SUCCESS = 'record/GET_TAG_SUCCESS';
+export const GET_TAG_FAILURE = 'record/GET_TAG_FAILURE';
+// 현재 사람수 가져오기
+export const GET_USER_COUNT_REQUEST = 'record/GET_USER_COUNT_REQUEST';
+export const GET_USER_COUNT_SUCCESS = 'record/GET_USER_COUNT_SUCCESS';
+export const GET_USER_COUNT_FAILURE = 'record/GET_USER_COUNT_FAILURE';
 
 export const getTourDetail = createAsyncAction(
   GET_TOUR_DETAIL_REQUEST,
@@ -42,7 +46,7 @@ export const endTour = createAsyncAction(
   END_TOUR_REQUEST,
   END_TOUR_SUCCESS,
   END_TOUR_FAILURE,
-)<Tour, number, Error>();
+)<Review, number, Error>();
 
 export const cancelTour = createAsyncAction(
   CANCEL_TOUR_REQUEST,
@@ -61,3 +65,9 @@ export const getTag = createAsyncAction(
   GET_TAG_SUCCESS,
   GET_TAG_FAILURE,
 )<string, TagCode[], Error>();
+
+export const getUserCount = createAsyncAction(
+  GET_USER_COUNT_REQUEST,
+  GET_USER_COUNT_SUCCESS,
+  GET_USER_COUNT_FAILURE,
+)<number, number, Error>();
