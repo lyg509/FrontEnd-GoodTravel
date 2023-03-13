@@ -8,9 +8,9 @@ import {
   FireFilled,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import { likeCourse, unlikeCourse } from '../../../store/user';
-import { startTour } from '../../../store/record';
+import { RootState } from '../../store';
+import { likeCourse, unlikeCourse } from '../../store/user';
+import { startTour } from '../../store/record';
 import Router from 'next/router';
 export default function DetailHeader() {
   const dispatch = useDispatch();

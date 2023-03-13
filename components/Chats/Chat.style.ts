@@ -3,10 +3,12 @@ import styled from 'styled-components';
 const ChatWrapper = styled.div``;
 
 const ChatBlock = styled.div`
+  .app__count {
+  }
   .app__wrap {
     color: white;
     margin: 0 auto;
-    padding: 60px 0 0;
+    padding: 60px 0;
     position: relative;
     max-width: 350px;
     min-width: 200px;
@@ -108,4 +110,23 @@ const ChatBlock = styled.div`
   }
 `;
 
-export { ChatWrapper, ChatBlock };
+const ChatIcons = styled.div`
+  position: fixed;
+  bottom: 130px;
+  right: 60px;
+  font-size: 60px;
+  color: #5496ff;
+  cursor: pointer;
+  :hover {
+    color: #2666fc;
+    transform: scale(1.1);
+    transition: 0.5s linear;
+  }
+  @media ${props => props.theme.mobile} {
+    font-size: 35px;
+    bottom: 65px;
+    right: 27px;
+  }
+`;
+
+export { ChatWrapper, ChatBlock, ChatIcons };

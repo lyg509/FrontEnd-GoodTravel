@@ -1,28 +1,35 @@
 import { useCallback, useState } from 'react';
 import type { NextPage } from 'next';
 import { TEST } from '../../assets/test';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
-  Header,
   Wrapper,
   TestButton,
   TestQuestion,
-  Button,
-  ButtonWrapper,
 } from '../../components/Travel/Travel.style';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { saveTestResult } from '../../store/user';
+import Nav from '../../components/Nav/Nav';
 
 const TravelTest: NextPage = () => {
+  const { isLogin, userInfo } = useSelector((state: RootState) => state.user);
   const [step, setStep] = useState<number>(0);
   const router = useRouter();
   const dispatch = useDispatch();
+  const saveTest = useCallback(
+    (type: number) => {
+      localStorage.setItem('type', type + '');
+      let id = 0;
+      if (isLogin) id = userInfo.userId;
+      dispatch(saveTestResult.request({ userId: id, tourTestId: type + 1 }));
+    },
+    [dispatch],
+  );
 
   const selectAnswer = (no: number, type: number) => {
     if (no === -1) {
-      localStorage.setItem('type', type + '');
- 
+      saveTest(type);
       router.push('/travel/result');
     } else {
       setStep(no);
@@ -31,11 +38,7 @@ const TravelTest: NextPage = () => {
 
   return (
     <>
-      <Header>
-        <Link href="/">
-          <label>여행어때</label>
-        </Link>
-      </Header>
+      <Nav />
       <Wrapper>
         <h1 className="title">여행 성향 테스트</h1>
         <TestQuestion>Q. {TEST.questions[step].question}</TestQuestion>
@@ -51,11 +54,6 @@ const TravelTest: NextPage = () => {
             );
           })}
         </TestButton>
-        {/* <ButtonWrapper>
-          <Link href="/travel/result">
-            <Button>결과 보기</Button>
-          </Link>
-        </ButtonWrapper> */}
       </Wrapper>
     </>
   );

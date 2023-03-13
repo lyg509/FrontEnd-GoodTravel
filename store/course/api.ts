@@ -117,7 +117,7 @@ export async function KeywordCourseAPI() {
 
 export async function UserCourseAPI(payload: number) {
   const datas = await axios
-    .get(`https://j6e103.p.ssafy.io:5001/data/${payload}`)
+    .get(`https://localhost:5001/data/${payload}`)
     .then(
       res => {
         // 중복 제거

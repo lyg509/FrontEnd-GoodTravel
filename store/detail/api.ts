@@ -106,6 +106,14 @@ export async function GetCourseTagAPI(courseId: number) {
   return result;
 }
 
+// 코스 여행중 사람수 가져오기
+export async function GetCourseUserCountAPI(courseId: number) {
+  const result = await axios
+    .get(`${BASE_URL}course-detail/tour-ing/${courseId}`)
+    .then(res => res.data.count);
+  return result;
+}
+
 // 코스 상세정보 가져오기
 export async function GetCourseInfoAPI(courseId: number) {
   const result = await axios
@@ -142,6 +150,7 @@ export async function GetCourseDetailAPI(courseId: number) {
   const type = await GetCourseTypeAPI(courseId);
   const tag = await GetCourseTagAPI(courseId);
   const percentage = await GetCoursePercentageAPI(courseId);
+  const userCount = await GetCourseUserCountAPI(courseId);
   const result = {
     courseId: courseId,
     courseInfo: info.courseInfo,
@@ -150,6 +159,7 @@ export async function GetCourseDetailAPI(courseId: number) {
     courseType: type,
     courseTag: tag,
     coursePercentage: percentage,
+    courseUserCount: userCount,
   };
   return result;
 }

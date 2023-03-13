@@ -19,8 +19,11 @@ const Record: NextPage = () => {
   );
 
   const CancelTour = () => {
-    dispatch(cancelTour.request({ userId: userInfo.userId, tourId: tourId }));
-    Router.push('/');
+    const result = confirm('여행을 종료하시겠습니까?');
+    if (result) {
+      dispatch(cancelTour.request({ userId: userInfo.userId, tourId: tourId }));
+      Router.push('/');
+    }
   };
 
   return (
@@ -28,14 +31,22 @@ const Record: NextPage = () => {
       <Nav />
       <Menu currentName="나의 여행 레코드" />
       <Wrapper>
-        <RecordHeader>{courseName}</RecordHeader>
+        <RecordHeader>
+          {courseName}
+          <div
+            className="course-detail"
+            onClick={() => Router.push(`/course/${tourId}`)}
+          >
+            상세보기
+          </div>
+        </RecordHeader>
         {stamps.length > 0 && <RecordMap stamps={stamps} />}
         <RecordStamp />
         {stamps.some(data => data.state) ? (
           <RecordReview />
         ) : (
           <ReviewButton onClick={CancelTour}>
-            <div className="button">여행종료</div>
+            <div className="button">여행취소</div>
           </ReviewButton>
         )}
       </Wrapper>

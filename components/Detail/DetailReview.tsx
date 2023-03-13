@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Carousel, Divider, Tag } from 'antd';
 import { Review, ReviewCard, ReviewImage, TagBlock } from './Datail.style';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState } from '../../store';
 
 const settings = {
   dots: false,

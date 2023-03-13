@@ -1,23 +1,21 @@
-import { Space } from 'antd';
-import { ImageWrapper } from '../Register/Register.style';
 import Link from 'next/link';
+import { CourseImageWrapper } from './Course.style';
 
 export interface CourseFormProps {
   courseName: string;
   courseId: number;
+  imgSrc: string;
 }
-const CourseForm = ({ courseName, courseId }: CourseFormProps) => {
+const CourseForm = ({ courseName, courseId, imgSrc }: CourseFormProps) => {
   return (
-    <Space id="space" direction="vertical" style={{ height: '211px' }}>
-      <Link href={`/course/${courseId}`}>
-        <ImageWrapper>
-          <div id="image">
-            <img src="/images/1.png" />
-          </div>
-          <div id="title">{courseName}</div>
-        </ImageWrapper>
-      </Link>
-    </Space>
+    <Link href={`/course/${courseId}`}>
+      <CourseImageWrapper>
+        <div className="course-card-image">
+          <img src={imgSrc} />
+        </div>
+        <div className="course-card-name">{courseName}</div>
+      </CourseImageWrapper>
+    </Link>
   );
 };
 

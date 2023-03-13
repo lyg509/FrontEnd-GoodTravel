@@ -14,16 +14,6 @@ const CourseWrapper = styled.div`
       font-size: 15px;
     }
   }
-  .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-  .react-horizontal-scrolling-menu--scroll-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .Coursestyle__CourseFormWrapper-sc-ozxrvz-4 {
-    margin-top: 10px;
-  }
 `;
 
 const CourseBlock = styled.div`
@@ -33,6 +23,22 @@ const CourseBlock = styled.div`
     font-weight: bold;
     font-family: 'Jalnan';
   }
+  .react-horizontal-scrolling-menu--scroll-container {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d2d0d0;
+      border-radius: 10px;
+      background-clip: padding-box;
+      border: 5px solid transparent;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
+  }
   @media ${props => props.theme.mobile} {
     .title {
       font-size: 15px;
@@ -41,7 +47,6 @@ const CourseBlock = styled.div`
 `;
 
 // searchForm
-
 const SearchFormWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -76,15 +81,50 @@ const CourseFormWrapper = styled.div`
   #card {
     cursor: pointer;
   }
-  ::-webkit-scrollbar {
-    display: none;
+`;
+
+const CourseSliderBlock = styled.div`
+  .slick-prev:before,
+  .slick-next:before {
+    color: gray;
+  }
+  @media (max-width: 1000px) {
+    margin: 0px 40px;
+  }
+`;
+const CourseImageWrapper = styled.div`
+  width: 100%;
+  padding: 10px;
+  .course-card-image {
+    img {
+      border: 1px solid lightgray;
+      background-color: lightgray;
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+  }
+  .course-card-name {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+  @media (max-width: 1000px) {
+    .course-card-image {
+      img {
+        height: 200px;
+      }
+    }
   }
 `;
 
 export {
+  CourseSliderBlock,
   CourseWrapper,
   CourseBlock,
   SearchFormWrapper,
   Button,
   CourseFormWrapper,
+  CourseImageWrapper,
 };

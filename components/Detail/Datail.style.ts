@@ -41,8 +41,10 @@ const Header = styled.div`
 
 const CourseMap = styled.div`
   height: 350px;
+  width: 450px;
   @media ${props => props.theme.tablet} {
     height: 300px;
+    width: 100%;
   }
   .customoverlay {
     position: relative;
@@ -79,7 +81,9 @@ const CourseMap = styled.div`
 `;
 
 const CourseImage = styled.div`
+  border: 1px solid ${props => props.theme.colors.backgroundColor};
   height: 350px;
+  width: 450px;
   margin-left: 10px;
   .course-image {
     position: relative;
@@ -87,7 +91,6 @@ const CourseImage = styled.div`
       height: 350px;
       width: 100%;
       object-fit: cover;
-      border: 1px solid ${props => props.theme.colors.backgroundColor};
     }
   }
   .course-image-content {
@@ -97,13 +100,36 @@ const CourseImage = styled.div`
     color: white;
     padding: 10px;
     padding-bottom: 30px;
-    bottom: 1px;
-    left: 1px;
-    right: 1px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
   }
   .course-image-content .name {
     font-size: 15px;
     font-weight: bold;
+  }
+  .slick-dots {
+    bottom: 10px;
+  }
+  .slick-dots li button:before {
+    font-size: 13px;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    content: '•';
+    text-align: center;
+    opacity: 0.8;
+    color: white;
+  }
+  .slick-dots .slick-active button:before {
+    color: red;
+  }
+  @media ${props => props.theme.tablet} {
+    width: 100%;
+    margin-left: 0px;
   }
 `;
 
@@ -135,25 +161,24 @@ const Review = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
-  & > div {
-    padding: 0px 20px;
-    .slick-prev {
-      width: 30px;
-      height: 30px;
-      background-image: url('/images/left_arrow.png');
-      background-size: cover;
-    }
-    .slick-next {
-      width: 30px;
-      height: 30px;
-      background-image: url('/images/right_arrow.png');
-      background-size: cover;
+  .content {
+    padding: 0 30px;
+    .slick-prev:before,
+    .slick-next:before {
+      color: gray;
+      font-family: 'slick';
+      font-size: 20px;
+      line-height: 1;
+      opacity: 0.75;
     }
   }
 `;
-const ReviewCard = styled.div``;
+const ReviewCard = styled.div`
+  padding: 0 10px;
+`;
+
 const ReviewImage = styled.div`
-  /* position: relative;
+  position: relative;
   img {
     height: 240px;
     width: 100%;
@@ -169,7 +194,7 @@ const ReviewImage = styled.div`
     left: 1px;
     color: white;
     background-color: rgba(0, 0, 0, 0.6);
-  } */
+  }
 `;
 
 const GraphBlock = styled.div`
@@ -184,11 +209,13 @@ const GraphPercentage = styled.div`
   border: 1px solid lightgray;
   border-radius: 1vw;
   height: 200px;
-  width: 35%;
+  width: 50%;
   margin-right: 20px;
   text-align: center;
   font-size: 20px;
   display: flex;
+  align-items: center;
+  padding: 0 50px;
   label {
     color: ${props => props.theme.colors.pointColor};
     font-size: 22px;
@@ -196,28 +223,48 @@ const GraphPercentage = styled.div`
     font-family: 'Jalnan';
     margin: 0 10px;
   }
+  position: relative;
+  .percentage {
+    position: absolute;
+    font-size: 14px;
+    text-align: center;
+    color: gray;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   @media ${props => props.theme.tablet} {
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 30px 10px;
+    font-size: 18px;
     margin-bottom: 20px;
     justify-content: center;
   }
 `;
 
 const GraphPie = styled.div`
+  .pie-title {
+    font-size: 16px;
+  }
   border: 1px solid lightgray;
   border-radius: 1vw;
   height: 200px;
-  width: 65%;
+  width: 50%;
+  padding: 10px;
   @media ${props => props.theme.tablet} {
     width: 100%;
   }
 `;
 const CourseDetail = styled.div`
-  /* display: flex;
-  justify-content: center;
-  flex-direction: row; */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  @media ${props => props.theme.tablet} {
+    flex-direction: column;
+    justify-content: center;
+  }
+  padding: 0 10px;
 `;
 const TagBlock = styled.div`
   padding: 0 10px;
